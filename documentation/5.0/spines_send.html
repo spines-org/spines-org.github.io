@@ -1,0 +1,46 @@
+<html><head><title>spines_send() - The Spines Messaging System</title></head>
+<link rel="stylesheet" type="text/css" href="/gen.css" />
+
+<body>
+
+<table>
+    <tr valign="top">
+    <td rowspan=2 width="15%" class="left_bar">
+        <!--#include virtual="/includes/side_menu.html" -->
+    </td>
+    <td width="85%" class="CENTER_DATA">
+        <!--#include virtual="/includes/spines_menu.html" -->
+
+<pre>
+NAME
+       spines_send - Sends reliable data through the Spines network 
+
+
+SYNOPSIS
+       #include "spines_lib.h"
+
+       int spines_send(int s, const void *msg, size_t len, int flags)
+
+
+DESCRIPTION
+       spines_send is used to transmit a message to another Spines
+       socket. The send call may be used only when the socket is in a
+       connected state (so that the intended recipient is known). The
+       parameter s is the file descriptor of the sending socket. The
+       message is found in msg and has length len. flags is currently
+       not used.
+
+
+
+RETURN VALUE
+       spines_send returns the number of bytes sent or -1 if an error
+       occured.
+
+</pre>
+
+
+<br>
+<br>
+
+<!--#include virtual="/includes/footer" -->
+

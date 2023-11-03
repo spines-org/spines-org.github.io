@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>spines_listen() - The Spines Overlay Messaging System</title>
+    <link rel="stylesheet" type="text/css" href="http://www.dsn.jhu.edu/dsn_style.css">
+</head>
+
+<body>
+    <div class="full-wrapper">
+    <!--#include virtual="/includes/top-nav.html" -->
+    <div class="main-wrapper">
+
+        <div class="large-title">
+        <h1>Spines</h1>
+        </div>
+
+    <!--#include virtual="/includes/spines_menu.html" -->
+
+        <div class="top-border-box">
+        </div> <!-- top-border-box --!>
+
+        <div class="textbox">
+
+<pre>
+NAME
+       spines_listen - Listens for a connection on a Spines socket 
+
+
+SYNOPSIS
+       #include "spines_lib.h"
+
+       int spines_listen(int s, int backlog);
+
+
+DESCRIPTION
+       To accept connections, a socket is first created with
+       spines_socket, a willingness to accept incoming connections is
+       specified with spines_listen, and then the connections are
+       accepted with spines_accept.  The spines_listen call applies
+       only to sockets of type SOCK_STREAM. The backlog parameter is 
+       currently not used. 
+
+
+RETURN VALUE
+        On success, zero is returned. On error, -1 is returned.
+
+</pre>
+
+</div> <!-- textbox -->
+
+    </div> <!-- main-wrapper -->
+    <!--#include virtual="/includes/footer.html" -->
+    </div> <!-- full-wrapper -->
+</body>
+
+</html>

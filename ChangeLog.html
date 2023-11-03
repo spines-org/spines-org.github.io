@@ -1,0 +1,263 @@
+<html>
+<head>
+<title>Spines ChangeLog</title>
+<link rel="stylesheet" type="text/css" href="http://www.dsn.jhu.edu/dsn_style.css">
+</head>
+
+
+
+<body>
+
+    <div class="full-wrapper">
+    <!--#include virtual="/includes/top-nav.html" -->
+    <div class="main-wrapper">
+
+        <div class="large-title">
+        <h1>Spines</h1>
+        </div>
+
+    <!--#include virtual="/includes/spines_menu.html" -->
+
+        <div class="top-border-box">
+        <div id="changelog">
+                <div class="large-title">
+                 <h2> ChangeLog </h2>
+                </div>
+        </div> <!-- overview --!>
+        </div> <!-- top-border-box --!>
+
+        <div class="textbox">
+<h4>Version 5.5 - December 23, 2020</h4>
+<ul>
+
+<li> The main change is this version is to use OpenSSL version 1.1.1
+
+<li> Allows use of key size 512 bits in addition to previous version's 1024 bits and 2048 bits
+
+</ul>
+
+<h4>Version 5.4 - November 26, 2018</h4>
+<ul>
+<li>The main change is this version is to the dissemination-graph-based routing algorithm
+    <ul>
+        <li>Support for dissemination-graph-based routing in Spines 5.3 used
+          static pre-computed graphs in all cases, but switched between these
+          graphs based on changing network conditions. The 5.4 release makes
+          this approach more dynamic, using two dynamically computed (not
+          static) node-disjoint paths in the normal case, and including dynamic
+          node-disjoint paths as one component of the resilient graphs used
+          under the most problematic conditions.
+
+        <li> This approach is described in Amy Babay's 2018 PhD thesis, "Timely,
+          Reliable, and Cost-Effective Internet Transport Service using
+          Structured Overlay Networks"
+    </ul>
+
+<li> Fixed bug in the interaction between link encryption and rate limiting
+      added in Spines 5.3 that could cause crashes
+    <ul>
+        <li> Reported by Tiger Gao, Daniel Qian, Elaine Wong, and Jason Wong
+    </ul>
+
+<li> Fixed bug in realtime link protocol's calculation of how many nacks can
+      fit in a packet
+
+<li> Additional minor bugfixes, improved enforcement of message size
+      constraints
+
+<li> Performance tuning, increasing maximum message sizes and default
+      bandwidth allowance (when rate limiting is used)
+
+</ul>
+
+<h4>Version 5.3 - March 9, 2018</h4>
+<ul>
+<li> Added Source-Based Routing capability (separate from K-paths used in
+     Intrusion-Tolerant Messaging)
+     <ul>
+         <li> Supports using K node-disjoint paths, flooding, or dissemination graphs (see below)
+     </ul>
+<li> Added support for dissemination-graph-based routing (a specific type of source-based routing)
+     <ul>
+         <li> Based on the protocol from: "Timely, Reliable, and Cost-Effective
+              Internet Transport Service using Dissemination Graphs," Amy Babay,
+              Emily Wagner, Michael Dinitz, and Yair Amir, in Proceedings of the
+              IEEE 37th International Conference on Distributed Computing Systems,
+              Atlanta, GA, June 2017, pp. 1-12.
+     </ul>
+<li> Turned off TCP fairness by default (can be enabled by starting Spines with
+      the -tf commandline flag)
+     <ul>
+         <li> By default, we now turn off TCP fairness but impose a 500 Mbps rate
+              limit on each link. The rate limit can be changed or turned off using
+              the commandline -rl option
+     </ul>
+<li> Added an option for tracking and periodically printing the number of
+      messages sent for each destination client at each daemon 
+<li> Simplified loss rate calculation
+<li> Changed report format of spines2port and port2spines test programs
+<li> Fixed memory leak in intrusion-tolerant protocols stemming from not
+      cleaning up OpenSSL context structures correctly
+<li> Fixed libpread-util memory system to support allocating types smaller than
+      sizeof(void*)
+<li> Bug fixes in the reliable session
+<li> Some tuning of default timeouts and window sizes to support higher
+      throughput and more aggressive rerouting
+</ul>
+
+<h4>Version 5.2 - May 17, 2017</h4>
+<ul>
+<li>    Added configuration option to encrypt messages sent on intrusion-tolerant data link
+<li>    Added configuration option to enable or disable remote client connections to daemons
+<li>    Hardened code (security-wise) that is responsible for receiving messages from other daemons
+<li>    Added site multicast for Intrusion-Tolerant Messaging (Priority and Reliable Messaging):
+        <ul>
+        <li> Messages sent with a specific destination port, when received at the destination daemon, are delivered to all clients of that daemon that have joined the multicast group
+        </ul>
+<li>    Added session option to specify behavior when the buffer between a daemon and its client fills:
+        <ul>
+        <li> Default option maintains connection but drops new packets that do not fit 
+        <li> Other option closes the client connection when the buffer overflows
+        </ul>
+<li>    Initial separation of K-paths from Intrusion-Tolerant Messaging - *EXPERIMENTAL*
+<li>    Added high resolution timestamps to Alarm logging
+<li>    Some minor bug fixes, including:
+        <ul>
+        <li> Specific erroneous client connections are now cleaned up and do not cause daemon to exit
+        <li> Multi-path routing now correctly delivers messages to local clients in a multicast group even if the destination daemon cannot be reached
+        </ul>
+</ul>
+
+<h4>Version 5.1 - May 17, 2016</h4>
+<ul>
+<li>	Added support for Inter-Process Communication (UNIX Domain Sockets)
+        <ul>
+	<li> Daemon binds to default filepath, non-default path can be specified on cmd line or in config file
+        <li> Changes to libspines to support AF_UNIX connections (on UNIX architectures)
+        <li> Testprogs and Controlprogs updated - IPC is new default, can connect via non-default path or AF_INET
+		<ul>
+		<li> Testprogs: sp_bflooder, sp_uflooder, sp_tflooder, port2spines, spines2port, sp_ping, sp_xcast
+		<li> Controlprogs: setlink
+		</ul>
+	</ul>
+<li>	New design (and improvements) for session blocking in Reliable Messaging
+<li>	Added DL_send_connected() to send scatter gather using send_msg function for connection-based AF_INET and AF_UNIX sockets
+<li>    Added new session semantics (chosen by application) needed for IT reliable communication:
+        <ul>
+	<li> RELIABLE_STREAM: Block session when flow buffers become full toward any destination
+        <li> RELIABLE_DGRAM_NO_BACKPRESSURE: Silently drop messages that do not fit, no blocking 
+		<br>&nbsp&nbsp&nbsp&nbsp *Experimental* (May be subject to change)
+        <li> RELIABLE_DGRAM_WITH_BACKPRESSURE: Explicit feedback indicating which messages are accepted, no blocking
+		<br>&nbsp&nbsp&nbsp&nbsp *Experimental* (Not in open source yet)
+	</ul>
+<li>	Renamed both of the intrusion-tolerant messaging semantics to more accurately match behavior:
+	<ul>
+	<li> Changed BEST_EFFORT_FLOOD_ROUTING to IT_PRIORITY_ROUTING
+	<li> Changed RELIABLE_FLOOD_ROUTING TO IT_RELIABLE_ROUTING
+	</ul>
+<li> 	Several minor bug fixes, including:
+	<ul>
+        <li> Reliable Messaging - fairness in the presence of a certain attack
+        <li> Large bitmask support - for bitmasks larger than 64 bits
+        <li> Reliable Session - now correctly uses the routing notion
+	</ul>
+</ul>
+
+<h4>Version 5.0 - January 26, 2015</h4>
+<ul>
+<li>    Added support for a configuration file (spines.conf) to specify:
+	<ul>
+	<li> Network topology (nodes and edges)
+	<li> Parameters for new link and dissemination protocols
+	<li> Cryptographic options
+	<li> Intrusion Tolerance Mode - a new ability to harden Spines against potential insider attacks
+	</ul>
+<li>    Support for multiple dissemination methods - each message now has both a dissemination and a link protocol
+<li>	New link protocol - Intrusion Tolerant Link
+<li>	New dissemination protocol - Priority Messaging with Source Fairness
+<li>	New dissemination protocol - Reliable Messaging with Flow Fairness
+<li>	Source-based routing, including node disjoint paths, using a bitmask per message
+<li>	Integrated with OpenSSL functions to provide cryptographic authentication in the new protocols above
+<li>	New test program (sp_bflooder), which functionally resembles sp_uflooder, but supports the new protocols above
+</ul>
+
+<h4>Version 4.0 - September, 2013</h4>
+<ul>
+<li>    Upgraded to use StdUtil 1.1.3
+<li>    Reorganized to use LibSpreadUtil 4.2.0
+<li>    Common forwarding and routing logic factored out and concentrated in route.c
+<li>    Minor improvements in state flood and hello protocols
+<li>    Minor improvements in build system; general code clean up
+<li>    Node, Interface, Leg and Edge ID's virtualized -- dissociated from network addresses (prepare for IPv6)
+<li>    Experimental SSL code removed
+</ul>
+
+<h4>Version 3.2 - May 15, 2009</h4>
+<ul>
+<li>New package directory layout and organization.
+<li>Mac OS X updated support.
+<li>Win32 updated support.
+<li>Updated Wireless code, so it is not compiled in unless -WIRELESS_SUPPORT option is enabled on the configure command line.
+<li>SPINES_IP_TTL and SPINES_IP_MULTICAST_TTL time-to-live options on spines_setsockopt now available and supported.
+<li>Added errno error reporting on client library errors.
+<li>Upgraded to use StdUtil 1.1
+<li>Several minor bug fixes.
+</ul>
+
+<h4>Version 3.1 - Mar 21, 2008</h4>
+<ul>
+<li>Added spines_setsockopt() options to control Time-to-Live (ttl) value on overlay unicast/multicast/anycast packets.
+<li>Added ability to retrieve overlay membership information through a spines_ioctl() call.
+<li>Added ability to retrieve overlay network topology/distance/cost information through a spines_ioctl() call.
+<li>Added ability to retrieve average network cost from any node to the members of a group through a spines_ioctl() call.
+<li>Added wireless monitor capability to retrieve signal strength (RSSI) and other parameters in wireless environments.
+<li>Several minor bug fixes.
+</ul>
+
+<h4>Version 3.0 - May 31, 2007</h4>
+<ul>
+<li>Added neighbor autodiscovery through IP-Multicast or broadcast.
+<li>Added unicast kernel routing  between daemons.
+<li>Added kernel routing  based on Multicast/Anycast group membership.
+<li>Added Anycast group membership service.
+<li>Added wireless option for setting different timers and behavior on wireless environments.
+<li>Added multicast Loop option for setsockopt.
+<li>Added endianess support for cross-platform deployments.
+<li>Added SSL-based security on point-to-point communication between the daemons (experimental).
+</ul>
+
+<h4>Version 2.2 - Dec 20, 2005</h4>
+<ul>
+<li>Added support for creating custom topologies with dynamic link characteristics.
+<li>Several minor bug fixes.
+</ul>
+
+<h4>Version 2.1 - Jan 18, 2005</h4>
+<ul>
+<li>Changed the API to closely resemble the regular socket interface.
+<li>Added option for UDP communication between the applications and overlay nodes.
+<li>New Real-Time link and routing protocol for use in time-sensitive applications such as VoIP.
+<li>Added support for large data packets, up to 64KB for datagram communication and virtually
+    unlimited for stream-based communication. 
+<li>Added end-to-end application flow control for stream-based communication.
+</ul>
+
+<h4>Version 2.0 - Dec 14, 2003</h4>
+<ul>
+<li>Added Multicast capabilities.
+<li>Routing based on distance, latency or loss rate of the links.
+<li>Stream based fairness option for the reliable link congestion control.
+<li>Added setloss monitor command for setting loss and burstiness on overlay links.
+</ul>
+<h4>Version 1.0 - Jan 17, 2003</h4>
+<ul>
+<li>Initial release.
+</ul>
+
+    </div> <!-- textbox -->
+
+    </div> <!-- main-wrapper -->
+    <!--#include virtual="/includes/footer.html" -->
+    </div> <!-- full-wrapper -->
+</body>
+</html>

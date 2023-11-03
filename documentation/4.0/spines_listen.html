@@ -1,0 +1,44 @@
+<html><head><title>spines_listen() - The Spines Messaging System</title></head>
+<link rel="stylesheet" type="text/css" href="/gen.css" />
+
+<body>
+
+<table>
+    <tr valign="top">
+    <td rowspan=2 width="15%" class="left_bar">
+        <!--#include virtual="/includes/side_menu.html" -->
+    </td>
+    <td width="85%" class="CENTER_DATA">
+        <!--#include virtual="/includes/spines_menu.html" -->
+
+<pre>
+NAME
+       spines_listen - Listens for a connection on a Spines socket 
+
+
+SYNOPSIS
+       #include "spines_lib.h"
+
+       int spines_listen(int s, int backlog);
+
+
+DESCRIPTION
+       To accept connections, a socket is first created with
+       spines_socket, a willingness to accept incoming connections is
+       specified with spines_listen, and then the connections are
+       accepted with spines_accept.  The spines_listen call applies
+       only to sockets of type SOCK_STREAM. The backlog parameter is 
+       currently not used. 
+
+
+RETURN VALUE
+        On success, zero is returned. On error, -1 is returned.
+
+</pre>
+
+
+<br>
+<br>
+
+<!--#include virtual="/includes/footer" -->
+

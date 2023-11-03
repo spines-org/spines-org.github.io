@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>spines_recvfrom() - The Spines Overlay Messaging System</title>
+    <link rel="stylesheet" type="text/css" href="http://www.dsn.jhu.edu/dsn_style.css">
+</head>
+
+<body>
+    <div class="full-wrapper">
+    <!--#include virtual="/includes/top-nav.html" -->
+    <div class="main-wrapper">
+
+        <div class="large-title">
+        <h1>Spines</h1>
+        </div>
+
+    <!--#include virtual="/includes/spines_menu.html" -->
+
+        <div class="top-border-box">
+        </div> <!-- top-border-box --!>
+
+        <div class="textbox">
+
+<pre>
+NAME
+       spines_recvfrom - Receive a message from a Spines socket
+
+
+SYNOPSIS
+       #include "spines_lib.h"
+
+        int spines_recvfrom(int s, void *buf, size_t len, int flags, 
+                            struct sockaddr *from, socklen_t *fromlen);
+
+
+DESCRIPTION
+       spines_recvfrom is used to receive a message from a Spines
+       socket.  
+
+       If from is not NULL, the source address is filled in.  The
+       argument fromlen is a value-result parameter, initialized to
+       the size of the buffer associated with from, and modified on
+       return to indicate the actual size of the address stored there.
+
+
+RETURN VALUE
+       spines_recvfrom returns the number of bytes received, or 
+       -1 in case of an error
+
+
+</pre>
+
+    </div> <!-- textbox -->
+
+    </div> <!-- main-wrapper -->
+    <!--#include virtual="/includes/footer.html" -->
+    </div> <!-- full-wrapper -->
+</body>
+
+</html>

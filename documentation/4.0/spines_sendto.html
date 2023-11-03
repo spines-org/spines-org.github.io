@@ -1,0 +1,48 @@
+<html><head><title>spines_sendto() - The Spines Messaging System</title></head>
+<link rel="stylesheet" type="text/css" href="/gen.css" />
+
+<body>
+
+<table>
+    <tr valign="top">
+    <td rowspan=2 width="15%" class="left_bar">
+        <!--#include virtual="/includes/side_menu.html" -->
+    </td>
+    <td width="85%" class="CENTER_DATA">
+        <!--#include virtual="/includes/spines_menu.html" -->
+
+<pre>
+NAME
+
+       spines_sendto - Sends a message to a Spines socket
+
+
+SYNOPSIS
+       #include "spines_lib.h"
+
+       int  spines_sendto(int  s,  const void *buf, size_t len, 
+                          int flags, const struct sockaddr *to, 
+                          socklen_t tolen); 
+
+
+DESCRIPTION
+       spines_sendto is used to send a message to a Spines
+       socket. 
+
+       The parameter s is the file descriptor of the sending socket.
+       buf points to the begining of a buffer and len is the length
+       of it. The destination client is identified by the parameter
+       to. The parameter flags is not yet used.
+
+RETURN VALUE
+       spines_sendto returns the number of bytes sent or -1 if an
+       error occured.
+
+</pre>
+
+
+<br>
+<br>
+
+<!--#include virtual="/includes/footer" -->
+

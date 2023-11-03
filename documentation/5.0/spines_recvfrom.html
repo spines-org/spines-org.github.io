@@ -1,0 +1,48 @@
+<html><head><title>spines_recvfrom() - The Spines Messaging System</title></head>
+<link rel="stylesheet" type="text/css" href="/gen.css" />
+
+<body>
+
+<table>
+    <tr valign="top">
+    <td rowspan=2 width="15%" class="left_bar">
+        <!--#include virtual="/includes/side_menu.html" -->
+    </td>
+    <td width="85%" class="CENTER_DATA">
+        <!--#include virtual="/includes/spines_menu.html" -->
+
+<pre>
+NAME
+       spines_recvfrom - Receive a message from a Spines socket
+
+
+SYNOPSIS
+       #include "spines_lib.h"
+
+        int spines_recvfrom(int s, void *buf, size_t len, int flags, 
+                            struct sockaddr *from, socklen_t *fromlen);
+
+
+DESCRIPTION
+       spines_recvfrom is used to receive a message from a Spines
+       socket.  
+
+       If from is not NULL, the source address is filled in.  The
+       argument fromlen is a value-result parameter, initialized to
+       the size of the buffer associ- ated with from, and modified on
+       return to indicate the actual size of the address stored there.
+
+
+RETURN VALUE
+       spines_recvfrom returns the number of bytes received, or 
+       -1 in case of an error
+
+
+</pre>
+
+
+<br>
+<br>
+
+<!--#include virtual="/includes/footer" -->
+

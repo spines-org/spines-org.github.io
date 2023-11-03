@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>spines_socket() - The Spines Overlay Messaging System</title>
+    <link rel="stylesheet" type="text/css" href="http://www.dsn.jhu.edu/dsn_style.css">
+</head>
+
+<body>
+    <div class="full-wrapper">
+    <!--#include virtual="/includes/top-nav.html" -->
+    <div class="main-wrapper">
+
+        <div class="large-title">
+        <h1>Spines</h1>
+        </div>
+
+    <!--#include virtual="/includes/spines_menu.html" -->
+
+        <div class="top-border-box">
+        </div> <!-- top-border-box --!>
+
+        <div class="textbox">
+
+<pre>
+NAME 
+       spines_socket - create an endpoint for communication with Spines
+
+
+SYNOPSIS
+       #include "spines_lib.h"
+
+       int spines_socket(int domain, int type, int protocol,
+			 const struct sockaddr *serv_addr);
+
+DESCRIPTION 
+       spines_socket creates an endpoint for communication and returns
+       a descriptor.
+
+       The domain parameter specifies a communication domain; this
+       selects the protocol family which will be used for
+       communication.  The currently understood formats include:
+
+       Name		   Purpose
+       PF_SPINES	   Regular Spines communication
+
+       The socket has the indicated type, which specifies the
+       communication semantics. Currently defined types are:
+
+       SOCK_STREAM
+              Provides sequenced, reliable, two-way, connection-based
+              byte streams.
+
+       SOCK_DGRAM
+              Supports datagrams (connectionless, unreliable messages
+              of a fixed maximum length).
+
+       The protocol specifies both the communication protocol between
+       the client application and the Spines daemon, and the protocol
+       used by the Spines daemons to forward messages initiated from
+       this particular socket. The protocol is specified as a binary
+       OR between two flags:
+
+       Communication between the client application and the daemon:
+       TCP_CONNECT
+		   TCP communication
+
+       UDP_CONNECT
+		   UDP communication
+
+       Message forwarding between the Spines daemons for this
+       particular socket uses a link protocol and a dissemination
+       protocol:
+
+       Link Protocols:
+       UDP_LINKS
+		   Best effort forwarding
+
+       RELIABLE_LINKS
+		   Messages are sent reliably between daemons
+
+       SOFT_REALTIME_LINKS
+		   Message losses are attempted to be recovered, but
+		   only if they are likely to be recovered within a
+		   certain time frame
+
+       INTRUSION_TOL_LINKS 
+		   Messages are sent reliably between daemons and can be
+	           cryptographically protected (configuration option).
+		   The link provides protection against a potentially
+		   compromised endpoint by forcing each packet
+		   acknowledgement to contain evidence that the packet
+	           was actually received. 
+
+       Dissemination Protocols:
+       MIN_WEIGHT_ROUTING:
+	               Stateless routing protocol based on link-state routing
+
+       SOURCE_BASED_ROUTING:
+                   Source-based routing protocol. Each packet is
+                   stamped with a bitmask specifying the links it
+                   should be sent over (its dissemination graph) when
+                   it is created at its source. Supported routing
+                   schemes are: flooding, k node-disjoint paths, and
+                   targeted-redundancy dissemination graphs (see
+                   spines_setsockopt below).
+
+       IT_PRIORITY_ROUTING:
+                   Stateful intrusion-tolerant routing protocol based on
+                   source-based routing, providing timeliness guarantees
+                   and priority semantics independently for each active
+                   source. Messages can be cryptographically protected
+                   (configuration option).
+
+       IT_RELIABLE_ROUTING:
+                   Stateful intrusion-tolerant routing protocol based on
+                   source-based routing, providing end-to-end reliable
+                   message delivery, using back-pressure to stop new
+                   messages from entering the network when buffers are
+                   full, until existing messages are delivered. Messages
+                   can be cryptographically protected (configuration
+                   option).
+
+       When using IT_RELIABLE_ROUTING, the client can specify to its connected
+       Spines daemon the type of semantics to apply to its messages when
+       sending to a destination (different Spines daemon) that is undergoing
+       back-pressure, i.e., buffers for that destination are full:
+
+       Session Semantics (for IT_RELIABLE_ROUTING):
+       RELIABLE_STREAM_SESSION
+                   These semantics are best suited for applications that desire
+                   reliable in-order communication to a single destination.
+
+                   Messages are sent reliably between the client and its
+                   connected Spines daemon. If the flow buffer from this daemon
+                   to the destination has room, the message is added and sent.
+                   If the buffer is full, we store the message (for later use)
+                   and block the entire session toward all destinations until
+                   this flow has space for the stored message.
+
+       RELIABLE_DGRAM_SESSION_NO_BACKPRESSURE
+                   These semantics are best suited for applications that
+                   simultaneously send to multiple Spines destinations that do
+                   not want to be blocked when a destination's flow buffer
+                   becomes full. The no back-pressure option is appropriate for
+                   applications that do not need to know whether messages were
+                   accepted (able to fit in the flow buffer) at their connected
+                   Spines daemon.
+
+                   Messages are sent reliably between the client and its
+                   connected Spines daemon. If the flow buffer from this daemon
+                   to the destination has room, the message is added and sent.
+                   If the buffer is full, the message is silently dropped. Note
+                   that no message is stored for later and no feedback is given
+                   to the client. It is presumed that the client will handle
+                   any consequences accordingly.
+                   
+                   NOTE: These semantics are currently experimental and may be
+                   subject to change in future versions.
+
+       RELIABLE_DGRAM_SESSION_WITH_BACKPRESSURE
+                   These semantics are best suited for applications that
+                   simultaneously send to multiple Spines destinations that do
+                   not want to be blocked when a destination's flow buffer
+                   becomes full. The back-pressure option is appropriate for
+                   applications that need to know whether messages were
+                   accepted (able to fit in the flow buffer) at their connected
+                   Spines daemon.
+
+                   Messages are sent reliably between the client and its
+                   connected Spines daemon. Explicit feedback for each message
+                   is given to the client. This indicates whether or not the
+                   daemon had space in the (destination-specific) flow buffer
+                   to accept a client's message. 
+                   
+                   NOTE: These semantics are currently experimental and not in
+                   the open-source. Please contact us if you want to know more
+                   details.
+
+       By default, if the Protocol is set to zero, Spines will use TCP_CONNECT,
+       UDP_LINKS, MIN_WEIGHT_ROUTING, and RELIABLE_STREAM_SESSION.
+
+       Different sockets connected to the same or different Spines
+       daemons can use different values for their protocol parameter.
+       
+       The location of the Spines daemon is denoted by serv_addr. Currently,
+       clients can connect using two distinct families: AF_INET and AF_UNIX.
+       If serv_addr points to a struct sockaddr_in, then AF_INET will be chosen
+       and the client connects over TCP or UDP (depending on the other flags).
+       If serv_addr points to a struct sockaddr_un (on Unix-based systems), then
+       AF_UNIX will be chosen and the client connects using IPC.
+
+       If serv_addr is set to NULL, then the address set by spines_init()
+       is used (see spines_init description). If spines_init() was not
+       called explicitly, then the default connection method is IPC on Unix-based
+       machines and TCP (localhost on port 8100) on Windows-based machines.
+
+RETURN VALUE
+       -1 is returned if an error occurs; otherwise the return value
+       is a descriptor referencing the socket.
+
+</pre>
+
+    </div> <!-- textbox -->
+
+    </div> <!-- main-wrapper -->
+    <!--#include virtual="/includes/footer.html" -->
+    </div> <!-- full-wrapper -->
+</body>
+
+</html>

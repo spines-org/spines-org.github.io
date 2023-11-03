@@ -1,0 +1,42 @@
+<html><head><title>spines_init() - The Spines Messaging System</title></head>
+<link rel="stylesheet" type="text/css" href="/gen.css" />
+
+<body>
+
+<table>
+    <tr valign="top">
+    <td rowspan=2 width="15%" class="left_bar">
+        <!--#include virtual="/includes/side_menu.html" -->
+    </td>
+    <td width="85%" class="CENTER_DATA">
+        <!--#include virtual="/includes/spines_menu.html" -->
+
+<pre>
+NAME 
+       spines_init - sets the default Spines server for the library
+
+
+SYNOPSIS
+       #include "spines_lib.h"
+
+       int spines_init(const struct sockaddr *serv_addr);
+
+DESCRIPTION 
+       spines_init defines the default Spines server that will
+       be used in subsequent spines_socket() calls, unless
+       otherwise specified.
+
+       serv_addr represent the address of the Spines server.
+
+
+RETURN VALUE
+       -1 is returned if an error occurs; otherwise it returns 1
+
+</pre>
+
+
+<br>
+<br>
+
+<!--#include virtual="/includes/footer" -->
+

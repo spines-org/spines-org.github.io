@@ -1,0 +1,62 @@
+<html><head><title>spines_setsockopt() - The Spines Messaging System</title></head>
+<link rel="stylesheet" type="text/css" href="/gen.css" />
+
+<body>
+
+<table>
+    <tr valign="top">
+    <td rowspan=2 width="15%" class="left_bar">
+        <!--#include virtual="/includes/side_menu.html" -->
+    </td>
+    <td width="85%" class="CENTER_DATA">
+        <!--#include virtual="/includes/spines_menu.html" -->
+
+<pre>
+NAME
+       spines_setsockopt - Sets the options for a Spines socket
+
+
+SYNOPSIS
+       #include "spines_lib.h"
+
+       int spines_setsockopt(int s, int level, int optname, 
+                             const void *optval, socklen_t optlen);
+
+
+DESCRIPTION
+
+       The spines_setsockopt call is currently used for controlling
+       multicast and anycast communication. The parameter s refers to the
+       socket connected to Spines, and has to be of type SOCK_DGRAM. The
+       rest of the parameters will depend on optname:
+
+       SPINES_ADD_MEMBERSHIP 
+           Joins a multicast or anycast group. The optval and
+           optlen should refer to the ip_mreq struct containing the
+           multicast/anycast group.
+
+       SPINES_DROP_MEMBERSHIP 
+           Leaves a multicast or anycast group. The optval and
+           optlen should refer to the ip_mreq struct containing the
+           multicast/anycast group.
+
+       SPINES_MULTICAST_LOOP 
+           Turns on/off the multicast loopback. The optval and optlen
+           should refer to a u_char boolean parameter where 0=off and 1=on
+
+       Spines multicast address space is from 224.0.0.0 to 239.255.255.255
+       (Class D address). Spines anycast address space is from 240.0.0.0 to
+       254.255.255.255 (Class E address).
+
+
+RETURN VALUE
+       On success, zero is returned. On error, -1 is returned.
+
+</pre>
+
+
+<br>
+<br>
+
+<!--#include virtual="/includes/footer" -->
+

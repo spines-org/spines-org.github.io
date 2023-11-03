@@ -1,0 +1,126 @@
+<html><head><title>spines_socket() - The Spines Messaging System</title></head>
+<link rel="stylesheet" type="text/css" href="/gen.css" />
+
+<body>
+
+<table>
+    <tr valign="top">
+    <td rowspan=2 width="15%" class="left_bar">
+        <!--#include virtual="/includes/side_menu.html" -->
+    </td>
+    <td width="85%" class="CENTER_DATA">
+        <!--#include virtual="/includes/spines_menu.html" -->
+
+<pre>
+NAME 
+       spines_socket - create an endpoint for communication with Spines
+
+
+SYNOPSIS
+       #include "spines_lib.h"
+
+       int spines_socket(int domain, int type, int protocol,
+			 const struct sockaddr *serv_addr);
+
+DESCRIPTION 
+       spines_socket creates an endpoint for communication and returns
+       a descriptor.
+
+       The domain parameter specifies a communication domain; this
+       selects the protocol family which will be used for
+       communication.  The currently understood formats include:
+
+       Name		   Purpose
+       PF_SPINES	   Regular Spines communication
+
+       The socket has the indicated type, which specifies the
+       communication semantics. Currently defined types are:
+
+       SOCK_STREAM
+              Provides sequenced, reliable, two-way, connection-based
+              byte streams.
+
+       SOCK_DGRAM
+              Supports datagrams (connectionless, unreliable messages
+              of a fixed maximum length).
+
+       The protocol specifies both the communication prototol between
+       the client application and the Spines daemon, and the protocol
+       used by the Spines daemons to forward messages initiated from
+       this particular socket. The protocol is specified as a binary
+       OR between two flags:
+
+       Communication between the client application and the daemon:
+       TCP_CONNECT
+		   TCP communication
+
+       UDP_CONNECT
+		   UDP communication
+
+       Message forwarding between the Spines daemons for this
+       particular socket uses a link protocol and a dissemination
+       protocol:
+
+       Link Protocols:
+       UDP_LINKS
+		   Best effort forwarding
+
+       RELIABLE_LINKS
+		   Messages are sent reliably between daemons
+
+       SOFT_REALTIME_LINKS
+		   Message losses are attempted to be recovered, but
+		   only if they are likely to be recovered within a
+		   certain time frame
+
+       INTRUSION_TOL_LINKS 
+		   Messages are sent reliably between daemons and can be
+	           cryptographically protected (configuration option).
+		   The link provides protection against a potentially
+		   compromised endpoint by forcing each packet
+		   acknowledgement to contain evidence that the packet
+	           was actually received. 
+
+       Dissemination Protocols:
+       MIN_WEIGHT_ROUTING:
+	           Stateless routing protocol based on link-state routing
+
+       BEST_EFFORT_FLOOD_ROUTING:
+                   Stateful intrusion-tolerant routing protocol based on
+                   source-based routing, providing timeliness guarantees
+                   and priority semantics independently for each active
+                   source. Messages can be cryptographically protected
+                   (configuration option).
+
+       RELIABLE_FLOOD_ROUTING:
+                   Stateful intrusion-tolerant routing protocol based on
+                   source-based routing, providing end-to-end reliable
+                   message delivery, using back-pressure to stop new
+                   messages from entering the network when buffers are
+                   full, until existing messages are delivered. Messages
+                   can be cryptographically protected (configuration
+                   option).
+
+       By default, if the Protocol is set to zero, Spines will use
+       TCP_CONNECT, and UDP_LINKS, and MIN_WEIGHT_ROUTING.
+
+       Different sockets connected to the same or different Spines
+       daemons can use different values for their protocol parameter.
+       
+       The location of the Spines daemon is denoted by serv_addr. If
+       serv_addr is set to NULL, then the address set by spines_init()
+       is used, or if spines_init() was not called, it is assumed to
+       be the localhost on port 8100.
+
+RETURN VALUE
+       -1 is returned if an error occurs; otherwise the return value
+       is a descriptor referencing the socket.
+
+</pre>
+
+
+<br>
+<br>
+
+<!--#include virtual="/includes/footer" -->
+

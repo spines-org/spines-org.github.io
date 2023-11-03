@@ -1,0 +1,43 @@
+<html><head><title>spines_recv() - The Spines Messaging System</title></head>
+<link rel="stylesheet" type="text/css" href="/gen.css" />
+
+<body>
+
+<table>
+    <tr valign="top">
+    <td rowspan=2 width="15%" class="left_bar">
+        <!--#include virtual="/includes/side_menu.html" -->
+    </td>
+    <td width="85%" class="CENTER_DATA">
+        <!--#include virtual="/includes/spines_menu.html" -->
+
+<pre>
+NAME
+       spines_recv - Receives reliable data through the Spines network 
+
+
+SYNOPSIS
+       #include "spines_lib.h"
+
+       int spines_recv(int s, void *buf, size_t len, int flags);
+
+
+DESCRIPTION
+
+       The parameter s must refer to a Spines socket that is already
+       connected to some other Spines socket. 'buf' defines a memory
+       address where the message can be stored, and 'len' is the
+       available size for the message. flags is currently not used.
+
+RETURN VALUE
+       spines_recv returns the number of bytes received or -1 if an
+       error occured.
+
+</pre>
+
+
+<br>
+<br>
+
+<!--#include virtual="/includes/footer" -->
+

@@ -1,0 +1,49 @@
+<html><head><title>setlink - The Spines Messaging System</title></head>
+<link rel="stylesheet" type="text/css" href="/gen.css" />
+
+<body>
+
+<table>
+    <tr valign="top">
+    <td rowspan=2 width="15%" class="left_bar">
+        <!--#include virtual="/includes/side_menu.html" -->
+    </td>
+    <td width="85%" class="CENTER_DATA">
+        <!--#include virtual="/includes/spines_menu.html" -->
+
+<pre>
+NAME 
+     setlink - The Spines monitor program
+
+
+SYNOPSIS 
+
+     setlink bandwidth (kbps) latency (ms) loss_rate (%) 
+             burst_rate (%) source_ip destination_ip [port]
+
+DESCRIPTION 
+
+     setlink sets the virtual link characteristics in the Spines
+     topology from a source to a destination. Note that virtual links
+     in Spines can be made asymetrical i.e. the loss rate from node A
+     to node B can be different than the loss rate from B to a,
+     etc. If the intent is to create a symmetrical link, in order to
+     set the same parameters in both directions, setlink needs to be
+     run twice, one time for each direction of the link.
+
+     Note that the spines program needs to be run with the "-m" option
+     in order to accept commands from setlink.
+ 
+
+OPTIONS 
+
+    port: The port on which the Spines network is running (default
+          8100).
+
+</pre>
+
+<br>
+<br>
+
+<!--#include virtual="/includes/footer" -->
+

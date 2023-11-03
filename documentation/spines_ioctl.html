@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>spines_ioctl() - The Spines Overlay Messaging System</title>
+    <link rel="stylesheet" type="text/css" href="http://www.dsn.jhu.edu/dsn_style.css">
+</head>
+
+<body>
+    <div class="full-wrapper">
+    <!--#include virtual="/includes/top-nav.html" -->
+    <div class="main-wrapper">
+
+        <div class="large-title">
+        <h1>Spines</h1>
+        </div>
+
+    <!--#include virtual="/includes/spines_menu.html" -->
+
+        <div class="top-border-box">
+        </div> <!-- top-border-box --!>
+
+        <div class="textbox">
+
+<pre>
+NAME
+       spines_ioctl - Manipulates Spines router 
+
+
+SYNOPSIS
+       #include "spines_lib.h"
+
+       int  spines_ioctl(int s, int  level,  int  optname,  
+               const  void  *optval, socklen_t optlen);
+
+
+DESCRIPTION
+
+       The spines_ioctl call allows applications to manipulate internal
+       parameters of the Spines overlay router.  Currently, ioctl
+       can be used to dynamically add Spines neighbors. For example,
+       an application can decide when and who should the Spines router
+       connect to.
+
+       The parameter s refers to the socket connected to Spines, and has
+       to be of type SOCK_DGRAM. The rest of the parameters will depend
+       on optname:
+
+       SPINES_ADD_NEIGHBOR
+           optval and optlen should refer to a sockaddr type address
+           that holds the IP address of the Spines neighbor that the
+           node should connect to.
+
+
+RETURN VALUE
+       On success, zero is returned. On error, -1 is returned.
+
+</pre>
+
+</div> <!-- textbox -->
+
+    </div> <!-- main-wrapper -->
+    <!--#include virtual="/includes/footer.html" -->
+    </div> <!-- full-wrapper -->
+</body>
+
+</html>

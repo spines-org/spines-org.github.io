@@ -1,0 +1,51 @@
+<html><head><title>spines_setsockopt() - The Spines Messaging System</title></head>
+<link rel="stylesheet" type="text/css" href="/gen.css" />
+
+<body>
+
+<table>
+    <tr valign="top">
+    <td rowspan=2 width="15%" class="left_bar">
+        <!--#include virtual="/includes/side_menu.html" -->
+    </td>
+    <td width="85%" class="CENTER_DATA">
+        <!--#include virtual="/includes/spines_menu.html" -->
+
+<pre>
+NAME
+       spines_setsockopt - Sets the options for a Spines socket
+
+
+SYNOPSIS
+       #include "spines_lib.h"
+
+       int spines_setsockopt(int s, int level, int optname, 
+                             const void *optval, socklen_t optlen);
+
+
+DESCRIPTION
+
+       The spines_setsockopt call is currently used only for multicast
+       join and leave (ADD/DROP MEMBERSHIP). The parameter s reffers
+       to the socket connected to Spines, and has to be of type
+       SOCK_DGRAM. optname can be either:
+
+       SPINES_ADD_MEMBERSHIP - joins a multicast/anycast group
+       SPINES_DROP_MEMBERSHIP - leaves a multicast/anycast group
+
+       The parameters optval and optlen are used to access option
+       values, in this case a struct ip_mreq containing the multicast
+       group.
+
+
+RETURN VALUE
+       On success, zero is returned. On error, -1 is returned.
+
+</pre>
+
+
+<br>
+<br>
+
+<!--#include virtual="/includes/footer" -->
+

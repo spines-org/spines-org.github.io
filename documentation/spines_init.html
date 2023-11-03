@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>spines_init() - The Spines Overlay Messaging System</title>
+    <link rel="stylesheet" type="text/css" href="http://www.dsn.jhu.edu/dsn_style.css">
+</head>
+
+<body>
+    <div class="full-wrapper">
+    <!--#include virtual="/includes/top-nav.html" -->
+    <div class="main-wrapper">
+
+        <div class="large-title">
+        <h1>Spines</h1>
+        </div>
+
+    <!--#include virtual="/includes/spines_menu.html" -->
+
+        <div class="top-border-box">
+        </div> <!-- top-border-box --!>
+
+        <div class="textbox">
+
+<pre>
+NAME 
+       spines_init - sets the default Spines server for the library
+
+
+SYNOPSIS
+       #include "spines_lib.h"
+
+       int spines_init(const struct sockaddr *serv_addr);
+
+DESCRIPTION 
+       spines_init defines the default Spines server that will
+       be used in subsequent spines_socket() calls, unless
+       otherwise specified.
+
+       serv_addr represent the address of the Spines server.
+       Currently, spines_init supports 3 options:
+       (1) serv_addr points to a struct sockaddr_in* (family = AF_INET)
+       (2) serv_addr points to a struct sockaddr_un* (family = AF_UNIX)
+       (3) serv_addr is NULL, in which default is used.
+
+       On Unix systems, the default (serv_addr == NULL) is to use IPC over
+       Unix domain sockets. On Windows systems, the default behavior
+       is to use a TCP connection (AF_INET, SOCK_STREAM) to the daemon's
+       IP address based on a gethostbyname() function call.
+
+RETURN VALUE
+       -1 is returned if an error occurs; otherwise it returns 1
+
+</pre>
+
+    </div> <!-- textbox -->
+
+    </div> <!-- main-wrapper -->
+    <!--#include virtual="/includes/footer.html" -->
+    </div> <!-- full-wrapper -->
+</body>
+
+</html>

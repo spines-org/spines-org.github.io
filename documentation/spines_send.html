@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>spines_send() - The Spines Overlay Messaging System</title>
+    <link rel="stylesheet" type="text/css" href="http://www.dsn.jhu.edu/dsn_style.css">
+</head>
+
+<body>
+    <div class="full-wrapper">
+    <!--#include virtual="/includes/top-nav.html" -->
+    <div class="main-wrapper">
+
+        <div class="large-title">
+        <h1>Spines</h1>
+        </div>
+
+    <!--#include virtual="/includes/spines_menu.html" -->
+
+        <div class="top-border-box">
+        </div> <!-- top-border-box --!>
+
+        <div class="textbox">
+
+<pre>
+NAME
+       spines_send - Sends reliable data through the Spines network 
+
+
+SYNOPSIS
+       #include "spines_lib.h"
+
+       int spines_send(int s, const void *msg, size_t len, int flags)
+
+
+DESCRIPTION
+       spines_send is used to transmit a message to another Spines
+       socket. The send call may be used only when the socket is in a
+       connected state (so that the intended recipient is known). The
+       parameter s is the file descriptor of the sending socket. The
+       message is found in msg and has length len. flags is currently
+       not used.
+
+
+
+RETURN VALUE
+       spines_send returns the number of bytes sent or -1 if an error
+       occurred.
+
+</pre>
+
+    </div> <!-- textbox -->
+
+    </div> <!-- main-wrapper -->
+    <!--#include virtual="/includes/footer.html" -->
+    </div> <!-- full-wrapper -->
+</body>
+
+</html>

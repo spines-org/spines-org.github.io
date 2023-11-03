@@ -1,0 +1,46 @@
+<html><head><title>spines_connect() - The Spines Messaging System</title></head>
+<link rel="stylesheet" type="text/css" href="/gen.css" />
+
+<body>
+
+<table>
+    <tr valign="top">
+    <td rowspan=2 width="15%" class="left_bar">
+        <!--#include virtual="/includes/side_menu.html" -->
+    </td>
+    <td width="85%" class="CENTER_DATA">
+        <!--#include virtual="/includes/spines_menu.html" -->
+
+<pre>
+NAME
+       spines_connect - Innitiates a connection on a Spines socket
+
+
+SYNOPSIS
+       #include "spines_lib.h"
+
+       int spines_connect(int sockfd, const struct sockaddr *serv_addr, 
+                          socklen_t addrlen);
+
+
+
+DESCRIPTION
+       This call attempts to make a connection to another socket.  The
+       other socket is specified by serv_addr, which is an address (of
+       length addrlen) in the communications space of the socket.
+       Generally, connection-based protocol sockets may successfully
+       connect only once.
+ 
+
+RETURN VALUE
+       If the connection succeeds, zero is returned. On error, -1
+       is returned.
+
+</pre>
+
+
+<br>
+<br>
+
+<!--#include virtual="/includes/footer" -->
+

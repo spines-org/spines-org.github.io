@@ -1,1 +1,286 @@
-Hello This is Spines Website
+<!DOCTYPE html>
+<html>
+<head>
+    <title>The Spines Overlay Messaging System</title>
+    <link rel="stylesheet" type="text/css" href="dsn_style.css">
+</head>
+
+<body>
+    <div class="full-wrapper">
+
+<div class="dsn-nav">
+    <ul>
+        <li><a href="https://jhu-dsn.github.io/index.html">Home</a></li>
+        <li><a href="https://jhu-dsn.github.io/about-us.html">About Us</a></li>
+        <li><a href="https://jhu-dsn.github.io/research.html">Research</a></li>
+        <li><a href="https://jhu-dsn.github.io/people.html">People</a></li>
+        <li><a href="https://jhu-dsn.github.io/photos.html">Photos</a></li>
+        <li><a href="https://jhu-dsn.github.io/funding.html">Funding</a></li>
+        <li><a href="https://jhu-dsn.github.io/publications.html">Publications</a></li>
+        <li><a href="https://jhu-dsn.github.io/softwares.html">Software</a></li>
+    </ul>
+</div>
+
+    <div class="main-wrapper">
+
+        <div class="large-title">
+        <h1>Spines</h1>
+        </div>
+
+<div class="page-nav">
+<ul>
+    <li> <a href="/">Home</a> </li>
+    <li> <a href="/documentation">Documentation</a> </li>
+    <li> <a href="/LICENSE.txt">License</a> </li>
+    <li> <a href="http://www.dsn.jhu.edu/download/download_spines.cgi">Download</a> </li>
+    <li> <a href="http://lists.cnds.jhu.edu/mailman/listinfo/spines-users/">Mailing List</a> </li>
+    <li> <a href="/credits.html">Credits</a> </li>
+</ul>
+</div>
+
+
+        <div class="top-border-box">
+        <div id="overview">
+                <div class="large-title">
+                 <h2> Overview </h2>
+                </div>
+        </div> <!-- overview --!>
+        </div> <!-- top-border-box --!>
+
+        <div class="textbox">
+
+        <p>Spines is a generic messaging infrastructure that provides
+        transparent unicast, multicast and anycast communication over dynamic,
+        multi-hop networking environments without the need for expensive router
+        programming environments or low level router coding. It provides
+        automatic reconfiguration and network flexibility required for research
+        and production deployments. </p>
+
+        <p>Some of the main usages of Spines are:
+
+        <ul>
+        <li> Create generic network topologies with dynamic link
+        characteristics (bandwidth, latency, loss rate, burstiness) on regular
+        computer clusters.
+
+        <li> Deploy overlay networks in the Internet, to achieve additional
+        services not available in the current networking infrastructure (e.g.
+        overlay multicast), as well as improved performance for existing
+        services.
+
+        <li> Create a logical LAN over unorganized, multi-hop hybrid and
+        wireless networks. As an example, it provides the communication
+        infrastructure between wireless access points in <a
+        href="http://www.smesh.org/">SMesh</a>, a completely transparent
+        wireless mesh network with instantaneous handoff.
+
+        <li> Deploy an intrusion-tolerant overlay network on existing Internet
+        (IP) infrastructure to overcome attacks and compromises in both the
+        underlying network and overlay itself. The intrusion-tolerant overlay
+        provides performance guarantees (i.e., strict timeliness or strict
+        reliability) even while under attack. See <a
+        href="/doc_intrusion_tolerance/">Intrusion Tolerant Documentation</a>
+        for more details.
+        </ul>
+        </p>
+
+        <p>Spines instantiates virtual router nodes on participating computers
+        and creates virtual links between these nodes. Spines uses best-effort
+        links, as well as reliable and soft real-time links between the nodes
+        for store and forward capabilities. Packets are routed automatically
+        through the network topology. The Spines topology can be dynamically
+        adjusted, and nodes select their routing based on various metrics
+        including hop distance, latency or packet loss. </p>
+
+        <p>In order to use Spines, applications use an  API almost identical to
+        the Unix Socket interface. Virtually any socket-based application can
+        be easily adapted to work with Spines. The Spines API provides TCP and
+        UDP-like functions for both reliable and best effort point to point
+        communication, and also provides multicast functionality in a
+        transparent way, very similar to IP Multicast. </p>
+
+        <p>Spines was created by <a href="http://www.cs.jhu.edu/~yairamir">Yair
+        Amir</a>, <a href="http://www.cs.jhu.edu/~claudiu">Claudiu Danilov</a>,
+        <a href="https://www.linkedin.com/in/john-lane-schultz-76982a62/">John
+        Schultz</a>, <a href="http://www.dsn.jhu.edu/~dano">Daniel
+        Obenshain</a>, <a href="http://www.dsn.jhu.edu/~tomt">Thomas
+        Tantillo</a>, and <a href="http://www.dsn.jhu.edu/~babay">Amy
+        Babay</a>. It is currently developed by the <a
+        href="http://www.dsn.jhu.edu/"> Distributed Systems and Networks
+        Lab</a> at <a href="http://www.jhu.edu/">Johns Hopkins University</a>
+        and at <a href="http://www.spreadconcepts.com/">Spread Concepts,
+        LLC</a>. </p>
+
+        <p>Spines may be freely used and distributed under some conditions.
+        Please review the <a href="/LICENSE.txt">license agreement</a> for more
+        details.</p>
+
+        <h3>Releases</h3>
+
+        <ul>
+        <li>Version 5.5 - Dec 23, 2020
+        <li>Version 5.4 - Nov 26, 2018
+        <li>Version 5.3 - Mar 9, 2018
+        <li>Version 5.2 - May 17, 2017
+        <li>Version 5.1 - May 17, 2016
+        <li>Version 5.0 - Jan 26, 2015
+        <li>Version 4.0 - Sep 4, 2013
+        <li>Version 3.2 - May 15, 2009
+        <li>Version 3.1 - Mar 21, 2008
+        <li>Version 3.0 - May 31, 2007
+        <li>Version 2.2 - Dec 20, 2005
+        <li>Version 2.1 - Jan 18, 2005
+        <li>Version 2.0 - Dec 14, 2003
+        <li>Version 1.0 - Jan 17, 2003
+        </ul>
+
+        <p> Complete <a href="http://www.spines.org/ChangeLog.html">Change
+        Log</a>.</p>
+
+        <h3>Related publications</h3>
+
+        <ul>
+
+        <li><a name="icdcs_2017_dissem" href="http://www.dsn.jhu.edu/papers/dissemination_graphs_icdcs2017.pdf">Timely, Reliable, and Cost-Effective Internet Transport Service using Dissemination Graphs</a>
+        <br>
+        <small>
+        In Proceedings of the IEEE 37th International Conference on Distributed Computing Systems (ICDCS), Atlanta GA, June 2017, pp. 1-12.
+        <br>
+        <a href="http://www.dsn.jhu.edu/~babay">Amy Babay</a>,
+        <a href="http://www.dsn.jhu.edu/~ewagner">Emily Wagner</a>,
+        <a href="http://www.cs.jhu.edu/~mdinitz">Michael Dinitz</a>,
+        <a href="http://www.cs.jhu.edu/~yairamir">Yair Amir</a>
+        </small><br><br></li>
+
+        <li><a name="icdcs_2017_vision" href="http://www.dsn.jhu.edu/papers/structured_overlays_icdcs2017_vision.pdf">Structured Overlay Networks for a New Generation of Internet Services</a>
+        <br>
+        <small>
+        In Proceedings of the IEEE 37th International Conference on Distributed Computing Systems (ICDCS), Vision track, Atlanta GA, June 2017. Invited paper.
+        <br>
+        <a href="http://www.cnds.jhu.edu/~babay">Amy Babay</a>,
+        <a href="http://www.cs.jhu.edu/~claudiu">Claudiu Danilov</a>,
+        John Lane,
+        <a href="https://www.linkedin.com/in/michal-miskin-amir-b5b9553b/">Michal Miskin-Amir</a>,
+        <a href="http://www.cnds.jhu.edu/~dano">Daniel Obenshain</a>,
+        <a href="https://www.linkedin.com/in/john-lane-schultz-76982a62/">John Schultz</a>, 
+        Jonathan Stanton, 
+        <a href="http://www.cnds.jhu.edu/~tomt">Thomas Tantillo</a>,
+        <a href="http://www.cs.jhu.edu/~yairamir">Yair Amir</a>
+        </small><br><br></li>
+
+        <li><a name="icdcs_2016" href="http://www.dsn.jhu.edu/pub/papers/icdcs2016_PITN.pdf">
+        Practical Intrusion-Tolerant Networks</a>
+        <br>
+        <small>
+        In Proceedings of the IEEE 36th International Conference on Distributed Computing Systems, Nara, Japan, June 2016, pp. 45-56.
+        <br>
+        <a href="http://www.cnds.jhu.edu/~dano">Daniel Obenshain</a>,
+        <a href="http://www.cnds.jhu.edu/~tomt">Thomas Tantillo</a>,
+        <a href="http://www.cnds.jhu.edu/~babay">Amy Babay</a>,
+        <a href="https://www.linkedin.com/in/john-lane-schultz-76982a62/">John Schultz</a>,
+        <a href="http://www.cs.purdue.edu/homes/newella">Andrew Newell</a>,
+        <a href="http://www.cs.purdue.edu/homes/mhoque">Md. Endadul Hoque</a>,
+        <a href="http://www.cs.jhu.edu/~yairamir">Yair Amir</a>,
+        <a href="http://www.ccs.neu.edu/home/crisn/">Cristina Nita-Rotaru</a>
+        </small><br><br></li>
+
+        <li><a name="ladis_2012" href="http://www.dsn.jhu.edu/pub/papers/LADIS2012.pdf">
+        Intrusion-Tolerant Cloud Monitoring and Control</a>
+        <br>
+        <small>
+        In Proceedings of the 2012 Workshop on Large-Scale Distributed Systems and Middleware (LADIS 2012), Madeira, Portugal, July 2012. Invited paper.
+        <br>
+        <a href="http://www.cnds.jhu.edu/~dano">Daniel Obenshain</a>,
+        <a href="http://www.cnds.jhu.edu/~tomt">Thomas Tantillo</a>,
+        <a href="http://www.cs.purdue.edu/homes/newella">Andrew Newell</a>,
+        <a href="http://www.ccs.neu.edu/home/crisn/">Cristina Nita-Rotaru</a>,
+        <a href="http://www.cs.jhu.edu/~yairamir">Yair Amir</a>
+        </small><br><br></li>
+
+        <li><a name="tmm_ac_06" href="http://www.dsn.jhu.edu/pub/papers/voip_tmm_06.pdf">
+        An Overlay Architecture for High Quality VoIP Streams</a>
+        <br>
+        <small>
+        IEEE Transactions on Multimedia, vol. 8, no. 6, 2006, 1250-1262.
+        <br>
+        <a href="http://www.cs.jhu.edu/~yairamir">Yair Amir</a>,
+        <a href="http://www.cs.jhu.edu/~claudiu">Claudiu Danilov</a>,
+        <a href="mailto:stuart.goose@ttb.siemens.com">Stuart Goose</a>,
+        <a href="mailto:david.hedqvist@scr.siemens.com">David Hedqvist</a>,
+        <a href="http://www.cs.jhu.edu/~terzis">Andreas Terzis</a>
+        </small>
+        <br><br></li>
+
+        <li><a name="handoff_mobisys06" href="http://www.cnds.jhu.edu/pub/papers/handoff_mobisys06.pdf">
+        Fast Handoff for Seamless Wireless Mesh Networks </a>
+        <br>
+        <small>
+        In Proceedings of the 4th International Conference on Mobile Systems, Applications and Services (Uppsala, Sweden, June 19 - 22, 2006). MobiSys '06. ACM, New York, NY, 83-95.
+        <br>
+        <a class="authors" href="http://www.cs.jhu.edu/~yairamir">Yair Amir</a>,
+        <a class="authors" href="http://www.cs.jhu.edu/~claudiu">Claudiu Danilov</a>,
+        <a class="authors" href="mailto:mhilsdale@dsn.jhu.edu">Michael Hilsdale</a>,
+        <a class="authors" href="http://www.cs.jhu.edu/~ralucam">Raluca Musaloiu-Elefteri</a>,
+        <a class="authors" href="http://www.cs.jhu.edu/~nrivera">Nilo Rivera</a>
+        </small>
+        <br><br></li>
+
+        <li><a name="cnds-2004-2" href="http://www.dsn.jhu.edu/pub/papers/cnds-2004-2.pdf">
+        1-800-OVERLAYS: Using Overlay Networks to Improve VoIP Quality</a>
+        <br>
+        <small>
+        In the Proceedings of the 15th International Workshop on Network and Operating Systems 
+        Support for Digital Audio and Video (NOSSDAV), Skamania, Washington, June 13th-14th, 2005. 
+        <br>
+        <a href="http://www.cs.jhu.edu/~yairamir">Yair Amir</a>,
+        <a href="http://www.cs.jhu.edu/~claudiu">Claudiu Danilov</a>,
+        <a href="mailto:stuart.goose@scr.siemens.com">Stuart Goose</a>,
+        <a href="mailto:david.hedqvist@scr.siemens.com">David Hedqvist</a>,
+        <a href="http://www.cs.jhu.edu/~terzis">Andreas Terzis</a>
+        </small>
+        <br><br></li>
+
+        <li><a name="dsn03_overlay" href="http://www.dsn.jhu.edu/pub/papers/dsn03_overlay.pdf">
+        Reliable Communication in Overlay Networks</a>
+        <br>
+        <small>
+        In the Proceedings of the IEEE International Conference on
+        Dependable Systems and Networks (DSN03), San Francisco, June 2003.
+        <br>
+        <a href="http://www.cs.jhu.edu/~yairamir">Yair Amir</a> and
+        <a href="http://www.cs.jhu.edu/~claudiu">Claudiu Danilov</a>.
+        </small>
+        <br><br></li>
+
+        <li><a name="fudico2002_msg_service" href="http://www.dsn.jhu.edu/pub/papers/fudico2002_msg_service.pdf">
+        High Performance, Robust, Secure and Transparent Overlay Network Service</a>
+        <br>
+        <small>
+        In FuDiCo 2002: International Workshop on Future Directions in 
+                      Distributed Computing , Bertinoro(Forli), Italy, June 3-7 2002.
+        <br>
+        <a href="http://www.cs.jhu.edu/~yairamir/">Yair Amir</a>,
+        <a href="http://www.cs.jhu.edu/~claudiu/">Claudiu Danilov</a>,
+        and <a href="http://www.dsn.jhu.edu/~crisn/"> Cristina Nita-Rotaru</a>.
+        </small></li>
+
+        </ul>
+
+    </div> <!-- textbox -->
+
+    </div> <!-- main-wrapper -->
+
+<div class="dsn-foot-wrapper">
+    <div class="dsn-foot">
+    Distributed Systems and Networks Lab <br>
+    Computer Science Department, Johns Hopkins University <br>
+    Malone Hall <br>
+    3400 North Charles Street <br>
+    Baltimore, MD 21218 <br>
+    </div>
+</div>
+
+    </div> <!-- full-wrapper -->
+</body>
+
+</html>

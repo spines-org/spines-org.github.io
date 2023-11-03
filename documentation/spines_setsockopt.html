@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>spines_setsockopt() - The Spines Overlay Messaging System</title>
+    <link rel="stylesheet" type="text/css" href="http://www.dsn.jhu.edu/dsn_style.css">
+</head>
+
+<body>
+    <div class="full-wrapper">
+    <!--#include virtual="/includes/top-nav.html" -->
+    <div class="main-wrapper">
+
+        <div class="large-title">
+        <h1>Spines</h1>
+        </div>
+
+    <!--#include virtual="/includes/spines_menu.html" -->
+
+        <div class="top-border-box">
+        </div> <!-- top-border-box --!>
+
+        <div class="textbox">
+
+<pre>
+NAME
+       spines_setsockopt - Sets the options for a Spines socket
+
+
+SYNOPSIS
+       #include "spines_lib.h"
+
+       int spines_setsockopt(int s, int level, int optname, 
+                             const void *optval, socklen_t optlen);
+
+
+DESCRIPTION
+
+       The spines_setsockopt call is currently used for controlling
+       multicast and anycast communication. The parameter s refers to the
+       socket connected to Spines, and has to be of type SOCK_DGRAM. The
+       rest of the parameters will depend on optname:
+
+       SPINES_ADD_MEMBERSHIP 
+           Joins a multicast or anycast group. The optval and
+           optlen should refer to the ip_mreq struct containing the
+           multicast/anycast group.
+
+       SPINES_DROP_MEMBERSHIP 
+           Leaves a multicast or anycast group. The optval and
+           optlen should refer to the ip_mreq struct containing the
+           multicast/anycast group.
+
+       SPINES_MULTICAST_LOOP 
+           Turns on/off the multicast loopback. The optval and optlen
+           should refer to a u_char boolean parameter where 0=off and 1=on
+
+       SPINES_SET_PRIORITY
+           Sets the priority level that will be assigned to all future messages
+           using the BEST_EFFORT_FLOOD_ROUTING dissemination protocol. Valid
+           priority levels are between 1 and 10 (inclusive), where 10 is the
+           highest priority.
+
+       SPINES_SET_EXPIRATION
+           Sets the expiration time for all future messages using the
+           BEST_EFFORT_FLOOD_ROUTING dissemination protocol. Meta data for 
+           messages are stored at spines daemons until they expire in order
+           to prevent message replay attacks from potentially malicious
+           neighbors.
+
+       SPINES_DISJOINT_PATHS
+           Sets the number of node-disjoint paths to use for all
+           future messages using SOURCE_BASED_ROUTING,
+           IT_PRIORITY_ROUTING, or IT_RELIABLE_ROUTING. Spines
+           currently supports values between 0 and 6 (inclusive). A
+           value of 0 represents flooding on the overlay, values 1-5
+           (inclusive) represent 1 to 5 node-disjoint paths, and 6
+           represents dissemination graphs with targeted redundancy.
+
+           The dissemination-graph scheme uses two disjoint paths in
+           the normal case, but if problems are detected (using
+           "problem" type routing) at a source or destination, the
+           protocol switches to a dissemination graph that adds
+           targeted redundancy around the problematic source and/or
+           destination.
+
+       Spines multicast address space is from 224.0.0.0 to 239.255.255.255
+       (Class D address). Spines anycast address space is from 240.0.0.0 to
+       254.255.255.255 (Class E address).
+
+
+RETURN VALUE
+       On success, zero is returned. On error, -1 is returned.
+
+</pre>
+
+    </div> <!-- textbox -->
+
+    </div> <!-- main-wrapper -->
+    <!--#include virtual="/includes/footer.html" -->
+    </div> <!-- full-wrapper -->
+</body>
+
+</html>

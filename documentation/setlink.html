@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>setlink - The Spines Overlay Messaging System</title>
+    <link rel="stylesheet" type="text/css" href="http://www.dsn.jhu.edu/dsn_style.css">
+</head>
+
+<body>
+    <div class="full-wrapper">
+    <!--#include virtual="/includes/top-nav.html" -->
+    <div class="main-wrapper">
+
+        <div class="large-title">
+        <h1>Spines</h1>
+        </div>
+
+    <!--#include virtual="/includes/spines_menu.html" -->
+
+        <div class="top-border-box">
+        </div> <!-- top-border-box --!>
+
+        <div class="textbox">
+
+<pre>
+NAME 
+     setlink - The Spines monitor program
+
+
+SYNOPSIS 
+
+     setlink bandwidth (kbps) latency (ms) loss_rate (%) 
+             burst_rate (%) source_ip destination_ip [port]
+
+DESCRIPTION 
+
+     setlink sets the virtual link characteristics in the Spines
+     topology from a source to a destination. Note that virtual links
+     in Spines can be made asymetrical i.e. the loss rate from node A
+     to node B can be different than the loss rate from B to a,
+     etc. If the intent is to create a symmetrical link, in order to
+     set the same parameters in both directions, setlink needs to be
+     run twice, one time for each direction of the link.
+
+     Note that the spines program needs to be run with the "-m" option
+     in order to accept commands from setlink.
+ 
+
+OPTIONS 
+
+    port: The port on which the Spines network is running (default
+          8100).
+
+</pre>
+
+    </div> <!-- textbox -->
+
+    </div> <!-- main-wrapper -->
+    <!--#include virtual="/includes/footer.html" -->
+    </div> <!-- full-wrapper -->
+</body>
+
+</html>

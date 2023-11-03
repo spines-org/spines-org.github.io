@@ -1,0 +1,107 @@
+<html><head><title>Documentation - The Spines Messaging System</title></head>
+<link rel="stylesheet" type="text/css" href="/gen.css" />
+
+<body>
+
+<table>
+    <tr valign="top">
+    <td rowspan=2 width="15%" class="left_bar">
+        <!--#include virtual="/includes/side_menu.html" -->
+    </td>
+    <td width="85%" class="CENTER_DATA">
+        <!--#include virtual="/includes/spines_menu.html" -->
+
+
+
+Spines is a messaging infrastructure that allows multi-hop communication
+(unicast and multicast), and deployment of virtual topologies on real
+networks.  Spines instantiates a virtual router node on every
+participating computer and creates virtual links between these
+nodes. Packets are routed automatically in through the network
+topology.  Many Spines topologies can coexist in the same physical
+network, and even overlap on some of the nodes or links.
+<p>
+Client applications connect to one of the router nodes (usually the
+closest) and send and receive messages from that node. Spines is
+responsible to forward application messages towards the nodes that
+have destination applications.  If multiple applications intend to
+communicate using Spines, they must connect to nodes of the same
+Spines network.
+<p>
+Spines runs a software daemon on each of the router nodes. The daemon
+acts both as a router, forwarding packets toward other nodes, and as a
+server, providing network services to client applications. Clients use
+a library to connect to a Spines daemon and send and receive
+messages. The API is almost identical to the Unix Socket interface.
+Virtually any socket-based application can be easily adapted to work
+with Spines. Spines API provides TCP and UDP-like functions with
+similar semantics for both reliable, and best effort communication.
+<p>
+A client can communicate with a daemon either via TCP or UDP.  A
+<I>spines_socket()</I> call returns a socket, which is actually a connection
+to the daemon. The application can use that socket to bind, listen,
+connect, send and receive, using Spines library calls
+(e.g. <I>spines_send()</I> is the equivalent to the regular <I>send()</I> call,
+<I>spines_recv()</I> is equivalent to <I>recv()</I>, etc.).
+<p>
+Each application can be uniquely identified in the topology by the
+pair of IP address of the node it is connected to, and an identifier
+at that node, which we call "virtual port". The virtual port of an
+application is either assigned automatically by the server node upon
+application connect, or it is set explicitly by the application in a
+call similar to the Unix bind(). Both reliable and best effort
+communication between two applications connected to the Spines network
+are done using the IP address and the virtual port described above in
+a way similar to TCP and UDP. Note that the virtual port of an
+application is only defined in relationship with a Spines node, and is
+not related to an operating system port of the computer the
+application, or the daemon is running on.
+<p>
+A multicast group is defined as a class D multicast address. If an
+application intends to join a group, it informs its server (router
+node) about this with a spines_setsockopt() call. From there on, the
+server will pass to the application the messages sent to that
+group. Leaving a group follows a similar procedure. In order to
+multicast a message to a group, an application simply sends the
+message (through its server) to the multicast address representing the
+group. The Spines network handles the routing of the multicast message
+according to the current membership of the group the message is sent
+to.  Applications can join, leave, send and receive messages to and
+from multicast groups at any time. An application can join multiple
+groups, thus it can be member of more than one group at the same
+time. An application does not need to be a member of a group in order
+to send messages to that group.
+<p>
+The current version of Spines was tested to run on Linux X86 computers and 
+on Linksys WRT54G wireless routers.
+<p>
+<h4>The Spines Daemon</h4>
+<a href="/documentation/spines_daemon.html">spines</a> 
+[-p spines_port] [-l local_address] [[-a destination][-a destination]...]<br>
+<dd>[-w Route_Weight] [-sf] [-m] [-U] [-x time_to_live]
+<p>
+<h4>Setting topology parameters</h4>
+<a href="/documentation/setlink.html">setlink</a>
+bandwidth (kbps) latency (ms) loss_rate (%)
+burst_rate (%) source_ip destination_ip [port]
+<p>
+<h4>The Spines API</h4>
+<a href="/documentation/spines_init.html">spines_init()</a><br>
+<a href="/documentation/spines_socket.html">spines_socket()</a><br>
+<a href="/documentation/spines_close.html">spines_close()</a><br>
+<a href="/documentation/spines_bind.html">spines_bind()</a><br>
+<a href="/documentation/spines_sendto.html">spines_sendto()</a><br>
+<a href="/documentation/spines_recvfrom.html">spines_recvfrom()</a><br>
+<a href="/documentation/spines_connect.html">spines_connect()</a><br>
+<a href="/documentation/spines_send.html">spines_send()</a><br>
+<a href="/documentation/spines_recv.html">spines_recv()</a><br>
+<a href="/documentation/spines_listen.html">spines_listen()</a><br>
+<a href="/documentation/spines_accept.html">spines_accept()</a><br>
+<a href="/documentation/spines_setsockopt.html">spines_setsockopt()</a><br>
+
+<br>
+<br>
+
+
+<!--#include virtual="/includes/footer" -->
+

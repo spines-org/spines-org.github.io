@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>spines_connect() - The Spines Overlay Messaging System</title>
+    <link rel="stylesheet" type="text/css" href="http://www.dsn.jhu.edu/dsn_style.css">
+</head>
+
+<body>
+    <div class="full-wrapper">
+    <!--#include virtual="/includes/top-nav.html" -->
+    <div class="main-wrapper">
+
+        <div class="large-title">
+        <h1>Spines</h1>
+        </div>
+
+    <!--#include virtual="/includes/spines_menu.html" -->
+
+        <div class="top-border-box">
+        </div> <!-- top-border-box --!>
+
+        <div class="textbox">
+
+<pre>
+NAME
+       spines_connect - Initiates a connection on a Spines socket
+
+
+SYNOPSIS
+       #include "spines_lib.h"
+
+       int spines_connect(int sockfd, const struct sockaddr *serv_addr, 
+                          socklen_t addrlen);
+
+
+
+DESCRIPTION
+       This call attempts to make a connection to another socket.  The
+       other socket is specified by serv_addr, which is an address (of
+       length addrlen) in the communications space of the socket.
+       Generally, connection-based protocol sockets may successfully
+       connect only once.
+ 
+
+RETURN VALUE
+       If the connection succeeds, zero is returned. On error, -1
+       is returned.
+
+</pre>
+
+    </div> <!-- textbox -->
+
+    </div> <!-- main-wrapper -->
+    <!--#include virtual="/includes/footer.html" -->
+    </div> <!-- full-wrapper -->
+</body>
+
+</html>

@@ -1,0 +1,57 @@
+<html>
+<head>
+    <title>spines_bind() - The Spines Overlay Messaging System</title>
+    <link rel="stylesheet" type="text/css" href="http://www.dsn.jhu.edu/dsn_style.css">
+</head>
+
+<body>
+    <div class="full-wrapper">
+    <!--#include virtual="/includes/top-nav.html" -->
+    <div class="main-wrapper">
+
+        <div class="large-title">
+        <h1>Spines</h1>
+        </div>
+
+    <!--#include virtual="/includes/spines_menu.html" -->
+
+        <div class="top-border-box">
+        </div> <!-- top-border-box --!>
+
+        <div class="textbox">
+
+<pre>
+NAME
+       spines_bind - bind a name to a Spines socket
+
+SYNOPSIS
+       #include "spines_lib.h"
+  
+       int spines_bind(int sockfd, struct sockaddr *my_addr, 
+                       socklen_t addrlen);
+
+DESCRIPTION
+       spines_bind gives the socket sockfd the local address
+       my_addr. my_addr is addrlen bytes long. When a Spines socket is
+       created with spines_socket, it has a virtual port automatically
+       assigned by the Spines daemon. This virtual port can be changed
+       through the spines_bind call.
+
+       It is normally necessary to assign a local address using
+       spines_bind before a SOCK_STREAM socket may receive connections
+       (see spines_accept).
+
+RETURN VALUE
+       On  success, zero is returned.  On error, -1 is returned.
+
+
+</pre>
+
+    </div> <!-- textbox -->
+
+    </div> <!-- main-wrapper -->
+    <!--#include virtual="/includes/footer.html" -->
+    </div> <!-- full-wrapper -->
+</body>
+
+</html>
