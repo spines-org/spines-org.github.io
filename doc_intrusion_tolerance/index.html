@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Documentation - The Spines Overlay Messaging System</title>
+    <link rel="stylesheet" type="text/css" href="../dsn_style.css">
+</head>
+
+<body>
+    <div class="full-wrapper">
+    <!--#include virtual="/includes/top-nav.html" -->
+    <div class="main-wrapper">
+
+        <div class="large-title">
+        <h1>Spines</h1>
+        </div>
+
+    <!--#include virtual="/includes/spines_menu.html" -->
+
+        <div class="top-border-box">
+        <div class="large-title">
+        <h2>Intrusion Tolerance Documentation </h2>
+        </div>
+        </div> <!-- top-border-box --!>
+
+        <div class="textbox">
+
+Spines version 5.0 adds new Intrusion Tolerant capabilities. Intrusion
+Tolerance is the notion that a system as a whole should continue to work
+correctly even if some portion of it is compromised (controlled by an
+adversary). This is sometimes called Byzantine Fault Tolerance.
+
+<p>
+Spines now looks for a configuration file (assumed to be at spines.conf, but
+the path can be specified with the -c option). This file allows Intrusion
+Tolerance mode to be turned on and off. If no configuration file is found,
+Spines will start with default values, including Intrusion Tolerance mode being
+off. If this is the case, the new protocols (below) will not be available.
+See the example_spines.conf file included in the source code for more details.
+
+<p>
+If Intrusion Tolerance mode is on, only the network topology specified in the
+configuration file will be honored. New nodes will not be allowed to join the
+system and existing nodes will not be able to create new edges. Link protocols
+that have not been hardened against a malicious neighbor are disabled.
+
+<p>
+The new Intrusion Tolerant Link protocol has been hardened against a malicious
+neighbor and is used for Intrusion Tolerance mode. In this link, each packet
+acknowledgement must provide evidence that the message was actually received.
+
+<p>
+Priority Messaging and Reliable Messaging are two new Intrusion Tolerant
+dissemination methods available with Intrusion Tolerance mode, and only use the
+Intrusion Tolerant Link to forward messages.
+
+<p>
+Priority Messaging uses a source-defined priority to allocate resources in a
+source-fair manner across all active source nodes. This enables it to provide
+timely messaging, even if some of the nodes in the network are compromised,
+working against the system. This dissemination method can be used with K
+node-disjoint paths, or with flooding on the overlay, to provide redundancy.
+
+<p>
+Reliable Messaging provides end-to-end reliable message delivery. It uses back
+pressure all the way to the source to stop new messages from entering the
+system until existing messages are delivered and allocated resources in a
+flow-fair manner (across all flows for memory, and across active flows for
+bandwidth).  Sources provide signed end-to-end acknowledgements to clear
+messages from buffers in the middle of the network. Reliable Messaging provides
+eventual path delivery: even if the network is cut due to failures and
+recoveries, the messages will still be delivered reliably. This dissemination
+method can be used with K node-disjoint paths, or with flooding on the overlay,
+to provide redundancy.
+
+<p>
+In order to provide message authentication and integrity, messages on the
+Intrusion Tolerant Link are HMAC'd and messages sent via the Priority Messaging
+and Reliable Messaging schemes are signed. We use OpenSSL for the cryptographic
+functions, and the parameters for these functions are in the configuration file.
+
+<p>
+Files for cryptographic functions (e.g. public and private keys) are expected
+to be in the keys/ folder if cryptographic methods are enabled. These files
+can be generated using the gen_keys.sh script. Be sure to change the script to
+match the correct number of nodes in the system. For security reasons, it is
+advisable to generate the keys offline, then move the appropriate keys
+(one private key and all public keys) to each node separately.
+
+<p>
+A new test program (sp_bflooder) is included in testprogs/.
+Its functionally resembles sp_uflooder, but it supports the new protocols above.
+See the usage for more details.
+<p>
+
+    </div> <!-- textbox -->
+
+    </div> <!-- main-wrapper -->
+    <!--#include virtual="/includes/footer.html" -->
+    </div> <!-- full-wrapper -->
+</body>
+
+</html>
